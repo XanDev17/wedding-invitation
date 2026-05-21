@@ -26,7 +26,7 @@ export function HeroCard() {
         </h1>
         <div className="brush-divider mt-8 mb-8" />
         <p className="font-serif text-xl md:text-3xl text-foreground/80 italic mb-8">September 24th, 2025</p>
-        <p className="text-muted-foreground uppercase tracking-[0.4em] text-[9px] sm:text-[10px]">San Francisco, California</p>
+        <p className="text-muted-foreground uppercase tracking-[0.4em] text-[9px] sm:text-[10px]">Leytonstone, London</p>
       </motion.div>
       <motion.div
         animate={{ y: [0, 8, 0] }}
@@ -41,9 +41,9 @@ export function HeroCard() {
         <motion.div
           key={i}
           className="absolute w-2 h-2 rounded-full bg-blush/30"
-          initial={{ 
-            x: Math.random() * 1000 - 500, 
-            y: Math.random() * 1000 - 500 
+          initial={{
+            x: Math.random() * 1000 - 500,
+            y: Math.random() * 1000 - 500
           }}
           animate={{
             y: [0, -120, 0],
