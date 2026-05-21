@@ -9,8 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Card, CardContent } from '@/components/ui/card';
-import { Loader2, CheckCircle2 } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
 const rsvpSchema = z.object({
   name: z.string().min(2, "Please enter your name"),
   attending: z.enum(["yes", "no"]),
@@ -28,7 +27,7 @@ export function RSVPForm() {
   const attendingValue = watch("attending");
   const onSubmit = async (data: RSVPValues) => {
     setIsSubmitting(true);
-    const toastId = toast.loading("Sending your response...");
+    const toastId = toast.loading("Sending your reply...");
     try {
       const response = await fetch('/api/rsvp', {
         method: 'POST',
@@ -37,7 +36,7 @@ export function RSVPForm() {
       });
       if (response.ok) {
         setIsSubmitted(true);
-        toast.success("RSVP received! Thank you.", { id: toastId });
+        toast.success("Response recorded", { id: toastId });
         confetti({
           particleCount: 150,
           spread: 70,
@@ -45,99 +44,85 @@ export function RSVPForm() {
           colors: ['#8F9E8B', '#E8D8CE', '#FDFBF7']
         });
       } else {
-        throw new Error("Failed to submit RSVP");
+        throw new Error("Failed");
       }
     } catch (error) {
-      console.error("Submission error", error);
-      toast.error("Something went wrong. Please try again.", { id: toastId });
+      toast.error("Error sending response", { id: toastId });
     } finally {
       setIsSubmitting(false);
     }
   };
   return (
-    <div className="section-container max-w-2xl">
-      <div className="text-center mb-12">
-        <h2 className="font-serif text-4xl md:text-5xl mb-4 text-foreground">RSVP</h2>
-        <p className="text-muted-foreground">Please let us know if you can join us by August 1st.</p>
+    <div className="paper-texture deckle-edge p-12 md:p-16 border border-sage/10 text-center relative overflow-hidden shadow-xl">
+      {/* Stamp illustration */}
+      <div className="absolute top-8 right-8 w-16 h-20 border-[1.5px] border-dashed border-sage/40 flex flex-col items-center justify-center p-2 opacity-40">
+        <div className="w-full h-full border border-sage/20 flex items-center justify-center font-serif text-[10px] uppercase text-sage">
+          Place<br/>Stamp
+        </div>
+      </div>
+      <div className="mb-12">
+        <h2 className="font-serif text-3xl mb-4 tracking-widest uppercase text-foreground">Reply</h2>
+        <p className="font-serif italic text-muted-foreground">The favor of a response is requested by August 1st</p>
       </div>
       <AnimatePresence mode="wait">
         {!isSubmitted ? (
-          <motion.div
-            key="form"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-          >
-            <Card className="illustrative-card">
-              <CardContent className="pt-6">
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 text-left">
+          <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-10 text-left">
+              <div className="space-y-2">
+                <Label htmlFor="name" className="font-serif uppercase tracking-widest text-xs text-sage/80">M.</Label>
+                <Input 
+                  id="name" 
+                  {...register("name")} 
+                  placeholder="Enter full name" 
+                  className="bg-transparent border-t-0 border-x-0 border-b border-dotted border-sage/50 rounded-none h-10 px-0 focus-visible:ring-0 focus-visible:border-sage placeholder:italic placeholder:text-muted-foreground/30" 
+                />
+                {errors.name && <p className="text-destructive text-[10px] font-serif italic">{errors.name.message}</p>}
+              </div>
+              <div className="space-y-6">
+                <RadioGroup
+                  defaultValue="yes"
+                  onValueChange={(v) => setValue("attending", v as "yes" | "no")}
+                  className="space-y-4"
+                >
+                  <div className="flex items-center space-x-3">
+                    <RadioGroupItem value="yes" id="yes" className="border-sage/40" />
+                    <Label htmlFor="yes" className="font-serif cursor-pointer uppercase tracking-wider text-sm">Accepts with Pleasure</Label>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <RadioGroupItem value="no" id="no" className="border-sage/40" />
+                    <Label htmlFor="no" className="font-serif cursor-pointer uppercase tracking-wider text-sm">Declines with Regret</Label>
+                  </div>
+                </RadioGroup>
+              </div>
+              {attendingValue === "yes" && (
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8 pt-4">
                   <div className="space-y-2">
-                    <Label htmlFor="name" className="text-sage font-bold uppercase tracking-widest text-xs">Full Name</Label>
-                    <Input id="name" {...register("name")} placeholder="Your name" className="bg-ivory/50 border-sage/20 h-12" />
-                    {errors.name && <p className="text-destructive text-xs">{errors.name.message}</p>}
+                    <Label className="font-serif uppercase tracking-widest text-[10px] text-sage/80">Number in Party</Label>
+                    <Input {...register("guests")} className="bg-transparent border-t-0 border-x-0 border-b border-dotted border-sage/50 rounded-none px-0 h-8" />
                   </div>
-                  <div className="space-y-3">
-                    <Label className="text-sage font-bold uppercase tracking-widest text-xs">Will you be attending?</Label>
-                    <RadioGroup
-                      defaultValue="yes"
-                      onValueChange={(v) => setValue("attending", v as "yes" | "no")}
-                      className="flex gap-8"
-                    >
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="yes" id="yes" />
-                        <Label htmlFor="yes" className="cursor-pointer">Joyfully Accept</Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="no" id="no" />
-                        <Label htmlFor="no" className="cursor-pointer">Regretfully Decline</Label>
-                      </div>
-                    </RadioGroup>
+                  <div className="space-y-2">
+                    <Label className="font-serif uppercase tracking-widest text-[10px] text-sage/80">Special Dietary Requirements</Label>
+                    <Input {...register("dietary")} className="bg-transparent border-t-0 border-x-0 border-b border-dotted border-sage/50 rounded-none px-0 h-8" />
                   </div>
-                  {attendingValue === "yes" && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      className="space-y-6 overflow-hidden"
-                    >
-                      <div className="space-y-2">
-                        <Label htmlFor="guests" className="text-sage font-bold uppercase tracking-widest text-xs">Number of Guests</Label>
-                        <Input id="guests" {...register("guests")} placeholder="Including yourself" type="number" className="bg-ivory/50 border-sage/20 h-12" />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="dietary" className="text-sage font-bold uppercase tracking-widest text-xs">Dietary Restrictions</Label>
-                        <Input id="dietary" {...register("dietary")} placeholder="None, Vegan, GF, etc." className="bg-ivory/50 border-sage/20 h-12" />
-                      </div>
-                    </motion.div>
-                  )}
-                  <Button type="submit" disabled={isSubmitting} className="w-full bg-sage hover:bg-sage/90 text-ivory h-14 rounded-full text-lg font-serif transition-all active:scale-[0.98]">
-                    {isSubmitting ? (
-                      <span className="flex items-center gap-2">
-                        <Loader2 className="w-5 h-5 animate-spin" />
-                        Sending...
-                      </span>
-                    ) : "Send Response"}
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
+                </motion.div>
+              )}
+              <Button 
+                type="submit" 
+                disabled={isSubmitting} 
+                className="w-full bg-sage/90 hover:bg-sage text-ivory rounded-none font-serif uppercase tracking-[0.2em] h-12 shadow-sm"
+              >
+                {isSubmitting ? "Sending..." : "Send Reply"}
+              </Button>
+            </form>
           </motion.div>
         ) : (
-          <motion.div
-            key="success"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="text-center py-12 px-6 bg-sage/10 rounded-4xl border-2 border-dashed border-sage/30"
-          >
-            <div className="flex justify-center mb-6">
-              <CheckCircle2 className="w-16 h-16 text-sage" />
-            </div>
-            <h3 className="font-serif text-3xl mb-4 text-foreground">Thank You!</h3>
-            <p className="text-muted-foreground leading-relaxed max-w-md mx-auto">
-              Your response has been received. {attendingValue === "yes" ? "We can't wait to celebrate with you!" : "We will miss you, but we appreciate you letting us know."}
-            </p>
-            <Button variant="ghost" className="mt-8 text-sage hover:bg-sage/10 rounded-full" onClick={() => setIsSubmitted(false)}>
-              Update RSVP
-            </Button>
+          <motion.div key="success" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="py-12 space-y-6">
+             <div className="w-16 h-16 border border-sage rounded-full flex items-center justify-center mx-auto text-sage">
+               <CheckCircle2 className="w-8 h-8" />
+             </div>
+             <h3 className="font-serif text-2xl uppercase tracking-widest">Delivered</h3>
+             <p className="font-serif italic text-muted-foreground">Your response has been carefully noted. Thank you.</p>
+             <button onClick={() => setIsSubmitted(false)} className="text-[10px] uppercase tracking-widest text-sage hover:underline underline-offset-4">Update Reply</button>
           </motion.div>
         )}
       </AnimatePresence>

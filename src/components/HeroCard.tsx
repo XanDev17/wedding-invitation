@@ -2,66 +2,73 @@ import React from 'react';
 import { motion } from 'framer-motion';
 export function HeroCard() {
   return (
-    <div className="relative h-screen flex flex-col items-center justify-center text-center overflow-hidden bg-ivory">
-      {/* Decorative Floral SVGs */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 0.4, scale: 1 }}
-        transition={{ duration: 2, ease: "easeOut" }}
-        className="absolute -top-20 -left-20 w-80 h-80 text-sage pointer-events-none"
-      >
-        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-          <path fill="currentColor" d="M40,-60C50,-50,55,-35,58,-20C61,-5,62,10,58,25C54,40,45,55,32,62C19,69,2,68,-15,64C-32,60,-49,53,-58,40C-67,27,-68,8,-64,-10C-60,-28,-51,-45,-38,-55C-25,-65,-10,-68,5,-75C20,-82,40,-70,40,-60Z" transform="translate(100 100)" />
+    <div className="relative paper-texture classic-card-border shadow-2xl rounded-sm min-h-[85vh] flex flex-col items-center justify-center text-center overflow-hidden">
+      {/* Ornate Corner Flourishes */}
+      <div className="absolute top-6 left-6 w-16 h-16 text-sage/30">
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1">
+          <path d="M0 0 Q50 0 50 50 Q0 50 0 0" />
+          <circle cx="50" cy="50" r="2" fill="currentColor" />
         </svg>
-      </motion.div>
+      </div>
+      <div className="absolute top-6 right-6 w-16 h-16 text-sage/30 rotate-90">
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1">
+          <path d="M0 0 Q50 0 50 50 Q0 50 0 0" />
+          <circle cx="50" cy="50" r="2" fill="currentColor" />
+        </svg>
+      </div>
+      <div className="absolute bottom-6 left-6 w-16 h-16 text-sage/30 -rotate-90">
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1">
+          <path d="M0 0 Q50 0 50 50 Q0 50 0 0" />
+          <circle cx="50" cy="50" r="2" fill="currentColor" />
+        </svg>
+      </div>
+      <div className="absolute bottom-6 right-6 w-16 h-16 text-sage/30 rotate-180">
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1">
+          <path d="M0 0 Q50 0 50 50 Q0 50 0 0" />
+          <circle cx="50" cy="50" r="2" fill="currentColor" />
+        </svg>
+      </div>
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        className="z-10 px-6 max-w-5xl"
+        transition={{ duration: 1.5 }}
+        className="z-10 px-8 max-w-3xl"
       >
-        <span className="text-sage font-medium tracking-[0.3em] uppercase text-[10px] sm:text-xs mb-6 block animate-fade-in">
-          You are cordially invited
+        <span className="text-sage/60 font-serif italic tracking-widest text-sm mb-12 block uppercase">
+          Together with their families
         </span>
-        <h1 
-          className="font-handwriting text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-sage mb-6 leading-tight tracking-[0.01em] break-words px-2 drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]"
-        >
-          Prince Baabu Obeng and Benedicta Annan
-        </h1>
-        <div className="brush-divider mt-10 mb-8" />
-        <p className="font-serif text-xl md:text-3xl text-foreground/80 italic mb-8">September 24th, 2025</p>
-        <p className="text-muted-foreground uppercase tracking-[0.4em] text-[9px] sm:text-[10px]">Leytonstone, London</p>
+        <div className="space-y-2 mb-12">
+          <h1 className="font-handwriting text-5xl md:text-7xl lg:text-8xl text-sage drop-shadow-sm leading-tight px-4">
+            Prince Baabu Obeng
+          </h1>
+          <span className="font-serif text-2xl italic text-sage/40 block">&</span>
+          <h1 className="font-handwriting text-5xl md:text-7xl lg:text-8xl text-sage drop-shadow-sm leading-tight px-4">
+            Benedicta Annan
+          </h1>
+        </div>
+        <div className="w-24 h-px bg-sage/20 mx-auto my-12" />
+        <div className="space-y-4">
+          <p className="font-serif text-xl md:text-2xl text-foreground/80 tracking-[0.1em] uppercase">
+            September 24th, 2025
+          </p>
+          <p className="font-serif text-lg text-sage/70 italic">At four o'clock in the afternoon</p>
+          <div className="pt-8">
+             <p className="text-muted-foreground font-serif uppercase tracking-[0.5em] text-[10px]">
+              Leytonstone • London
+             </p>
+          </div>
+        </div>
       </motion.div>
+      {/* Discreet Wax Seal Scroll Indicator */}
       <motion.div
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-16 left-1/2 -translate-x-1/2 text-sage/60"
+        animate={{ y: [0, 5, 0] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-12 left-1/2 -translate-x-1/2"
       >
-        <div className="w-px h-16 bg-sage/30 mx-auto" />
-        <span className="text-[10px] uppercase tracking-[0.2em] mt-3 block font-medium">Scroll Down</span>
+        <div className="w-8 h-8 rounded-full border border-sage/30 flex items-center justify-center">
+          <div className="w-2 h-2 rounded-full bg-sage/40" />
+        </div>
       </motion.div>
-      {/* Floating particles */}
-      {[...Array(8)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-2 h-2 rounded-full bg-blush/30"
-          initial={{
-            x: Math.random() * 1000 - 500,
-            y: Math.random() * 1000 - 500
-          }}
-          animate={{
-            y: [0, -120, 0],
-            x: [0, 60, 0],
-            opacity: [0.1, 0.4, 0.1]
-          }}
-          transition={{
-            duration: 6 + Math.random() * 6,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: i * 0.5
-          }}
-        />
-      ))}
     </div>
   );
 }

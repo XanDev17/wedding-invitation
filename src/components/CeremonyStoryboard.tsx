@@ -1,48 +1,12 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { Sparkles, GlassWater, Utensils, Music, Heart } from 'lucide-react';
-import { ArrivalIllustration, BrideGroomVows, CelebrationIllustration } from '@/components/IllustrativeCharacters';
-interface SceneData {
-  time: string;
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-  illustration?: React.ReactNode;
-}
-const scenes: SceneData[] = [
-  {
-    time: "4:00 PM",
-    title: "The Guest Arrival",
-    description: "Welcome to the celebration. Soft music plays as you find your seat within the historic halls of George Tomlinson.",
-    icon: <Sparkles className="w-8 h-8" />,
-    illustration: <ArrivalIllustration />,
-  },
-  {
-    time: "4:30 PM",
-    title: "The Vows",
-    description: "Prince and Benedicta exchange promises under the grand arches of the historic school hall. Tissues recommended for the happy tears.",
-    icon: <Heart className="w-8 h-8" />,
-    illustration: <BrideGroomVows />,
-  },
-  {
-    time: "5:30 PM",
-    title: "Cocktail Hour",
-    description: "Signature drinks and artisan hors d'oeuvres. A time to mingle and enjoy the charm of the Victorian grounds.",
-    icon: <GlassWater className="w-8 h-8" />,
-  },
-  {
-    time: "7:00 PM",
-    title: "The Grand Dinner",
-    description: "A candlelit feast served within the beautifully decorated assembly hall. Laughter and toasts echoing through the evening.",
-    icon: <Utensils className="w-8 h-8" />,
-  },
-  {
-    time: "9:00 PM",
-    title: "Dancing & Joy",
-    description: "The celebration reaches its peak. Put on your dancing shoes as the DJ plays our favorite hits in the main hall.",
-    icon: <Music className="w-8 h-8" />,
-    illustration: <CelebrationIllustration />,
-  },
+const scenes = [
+  { time: "4:00 PM", title: "Arrival", description: "The historic school hall doors open for guests", icon: <Sparkles className="w-5 h-5" /> },
+  { time: "4:30 PM", title: "The Exchange", description: "The solemn exchange of vows and promises", icon: <Heart className="w-5 h-5" /> },
+  { time: "5:30 PM", title: "Mingling", description: "Refreshments in the Victorian courtyard", icon: <GlassWater className="w-5 h-5" /> },
+  { time: "7:00 PM", title: "Dinner", description: "A formal dinner within the assembly hall", icon: <Utensils className="w-5 h-5" /> },
+  { time: "9:00 PM", title: "Celebration", description: "Music and dancing until late evening", icon: <Music className="w-5 h-5" /> },
 ];
 export function CeremonyStoryboard() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -56,83 +20,57 @@ export function CeremonyStoryboard() {
     restDelta: 0.001
   });
   return (
-    <div ref={containerRef} className="relative py-24 md:py-32 overflow-hidden bg-ivory/50">
-      <div className="max-w-4xl mx-auto px-6 text-center mb-20">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="font-serif text-4xl md:text-5xl mb-6 text-foreground"
-        >
-          The Story of Our Day
-        </motion.h2>
-        <p className="text-muted-foreground italic font-serif text-lg">A journey of love, from the first hello to the last dance.</p>
+    <div ref={containerRef} className="paper-texture classic-card-border shadow-lg p-12 md:p-20 bg-[#F7F5EF]">
+      <div className="text-center mb-16 space-y-4">
+        <h2 className="font-serif text-3xl tracking-[0.2em] uppercase">Order of Service</h2>
+        <div className="flex justify-center items-center gap-4 py-2">
+           <svg width="60" height="10" viewBox="0 0 60 10" className="text-sage/30">
+             <path d="M0 5 Q15 0 30 5 T60 5" fill="none" stroke="currentColor" strokeWidth="1" />
+           </svg>
+        </div>
       </div>
-      <div className="relative max-w-6xl mx-auto px-6">
-        {/* Animated Vertical Line */}
-        <div className="absolute left-1/2 top-0 bottom-0 w-px bg-sage/20 -translate-x-1/2 hidden md:block">
-          <motion.div
-            className="w-full origin-top"
-            style={{
-              height: "100%",
-              scaleY: pathLength,
-              background: "linear-gradient(to bottom, #8F9E8B, #E8D8CE, #8F9E8B)",
-              filter: "drop-shadow(0 0 8px rgba(143, 158, 139, 0.4))"
-            }}
+      <div className="relative max-w-xl mx-auto">
+        {/* Fine-ink timeline line */}
+        <div className="absolute left-1/2 top-0 bottom-0 w-[0.5px] bg-sage/20 -translate-x-1/2">
+           <motion.div
+            className="w-full origin-top bg-sage"
+            style={{ height: "100%", scaleY: pathLength }}
           />
         </div>
-        <div className="space-y-24 md:space-y-32">
+        <div className="space-y-16 relative">
           {scenes.map((scene, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-120px" }}
-              className={`flex flex-col md:flex-row items-center gap-8 md:gap-0 ${
-                idx % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-              }`}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="flex flex-col items-center text-center relative z-10"
             >
-              {/* Content Side */}
-              <div className={`flex-1 w-full text-center ${idx % 2 === 0 ? "md:text-right md:pr-16" : "md:text-left md:pl-16"}`}>
-                <span className="text-sage font-bold tracking-widest text-sm mb-2 block">{scene.time}</span>
-                <h3 className="font-serif text-2xl md:text-3xl mb-4 text-foreground">{scene.title}</h3>
-                <p className="text-muted-foreground leading-relaxed max-w-sm mx-auto md:mx-0 inline-block">
-                  {scene.description}
-                </p>
-              </div>
-              {/* Icon / Center Side */}
-              <div className="relative flex items-center justify-center z-10">
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white border-2 border-sage/30 flex items-center justify-center text-sage shadow-soft"
-                >
+              <div className="bg-ivory border border-sage/20 rounded-full p-2 mb-4 shadow-sm">
+                <div className="w-8 h-8 rounded-full border border-sage/10 flex items-center justify-center text-sage">
                   {scene.icon}
-                </motion.div>
-                {/* Decorative Blob */}
-                <div className={`absolute -z-10 w-24 h-24 rounded-full blur-2xl animate-pulse-slow ${idx % 2 !== 0 ? 'bg-blush/40' : 'bg-sage/10'}`} />
+                </div>
               </div>
-              {/* Illustration Side */}
-              <div className="flex-1 w-full flex items-center justify-center min-h-[240px] md:min-h-[300px] overflow-hidden">
-                {scene.illustration ? (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    className={`${idx % 2 === 0 ? "md:pl-16" : "md:pr-16"} w-full h-full flex items-center justify-center`}
-                  >
-                    {scene.illustration}
-                  </motion.div>
-                ) : (
-                  <div className="hidden md:block w-full h-32" />
-                )}
+              <div className="space-y-1 max-w-xs">
+                <span className="font-serif text-[10px] uppercase tracking-[0.3em] text-sage/70">{scene.time}</span>
+                <h3 className="font-serif text-lg tracking-wide uppercase">{scene.title}</h3>
+                <p className="font-serif italic text-muted-foreground text-sm">{scene.description}</p>
               </div>
+              {idx < scenes.length - 1 && (
+                <div className="py-8 text-sage/20 text-xs">❦</div>
+              )}
             </motion.div>
           ))}
         </div>
       </div>
-      {/* Background Decorative Elements */}
-      <div className="absolute top-1/4 -left-20 w-64 h-64 bg-sage/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-blush/10 rounded-full blur-3xl pointer-events-none" />
+      {/* Sketchy botanical details */}
+      <div className="absolute bottom-8 right-8 w-24 h-24 opacity-10 pointer-events-none">
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1">
+          <path d="M10 90 Q30 50 80 10 M80 10 L70 15 M80 10 L75 20" />
+          <path d="M35 75 Q45 60 55 65" />
+          <path d="M50 55 Q60 40 70 45" />
+        </svg>
+      </div>
     </div>
   );
 }
