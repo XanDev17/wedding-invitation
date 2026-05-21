@@ -18,15 +18,15 @@ export function HeroCard() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="z-10 px-4 max-w-5xl"
+        className="z-10 px-6 max-w-5xl"
       >
-        <span className="text-sage font-medium tracking-[0.3em] uppercase text-xs sm:text-sm mb-6 block">You are cordially invited</span>
-        <h1 className="font-handwriting text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-sage mb-4 leading-tight">
+        <span className="text-sage font-medium tracking-[0.3em] uppercase text-[10px] sm:text-xs mb-6 block">You are cordially invited</span>
+        <h1 className="font-handwriting text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-sage mb-6 leading-tight break-words">
           Prince Baabu Obeng and Benedicta Annan
         </h1>
-        <div className="brush-divider" />
-        <p className="font-serif text-2xl md:text-3xl text-foreground/80 italic mb-8">September 24th, 2025</p>
-        <p className="text-muted-foreground uppercase tracking-widest text-xs">San Francisco, California</p>
+        <div className="brush-divider mt-8 mb-8" />
+        <p className="font-serif text-xl md:text-3xl text-foreground/80 italic mb-8">September 24th, 2025</p>
+        <p className="text-muted-foreground uppercase tracking-widest text-[10px] sm:text-xs">San Francisco, California</p>
       </motion.div>
       <motion.div
         animate={{ y: [0, 10, 0] }}

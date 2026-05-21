@@ -1,14 +1,13 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import { Sparkles, GlassWater, Utensils, Music, Heart } from 'lucide-react';
-interface SceneProps {
+interface SceneData {
   time: string;
   title: string;
   description: string;
   icon: React.ReactNode;
-  index: number;
 }
-const scenes: SceneProps[] = [
+const scenes: SceneData[] = [
   {
     time: "4:00 PM",
     title: "The Guest Arrival",
@@ -54,7 +53,7 @@ export function CeremonyStoryboard() {
   return (
     <div ref={containerRef} className="relative py-24 md:py-32 overflow-hidden">
       <div className="max-w-4xl mx-auto px-6 text-center mb-20">
-        <motion.h2 
+        <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -67,14 +66,14 @@ export function CeremonyStoryboard() {
       <div className="relative max-w-5xl mx-auto px-6">
         {/* Animated Vertical Line */}
         <div className="absolute left-1/2 top-0 bottom-0 w-px bg-sage/20 -translate-x-1/2 hidden md:block">
-          <motion.div 
+          <motion.div
             className="w-full bg-sage origin-top"
             style={{ height: "100%", scaleY: pathLength }}
           />
         </div>
         <div className="space-y-24 md:space-y-40">
           {scenes.map((scene, idx) => (
-            <motion.div 
+            <motion.div
               key={idx}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -93,7 +92,7 @@ export function CeremonyStoryboard() {
               </div>
               {/* Icon / Center Side */}
               <div className="relative flex items-center justify-center z-10">
-                <motion.div 
+                <motion.div
                   whileHover={{ scale: 1.1 }}
                   className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white border-2 border-sage/30 flex items-center justify-center text-sage shadow-soft"
                 >

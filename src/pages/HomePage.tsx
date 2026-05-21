@@ -18,16 +18,16 @@ export function HomePage() {
         </nav>
       </header>
       <main>
-        <section id="hero">
+        <section id="hero" className="scroll-mt-16">
           <HeroCard />
         </section>
-        <section id="storyboard" className="bg-white/30">
+        <section id="storyboard" className="bg-white/30 scroll-mt-16">
           <CeremonyStoryboard />
         </section>
-        <section id="venue" className="bg-sage/5">
+        <section id="venue" className="bg-sage/5 scroll-mt-16">
           <VenueDetails />
         </section>
-        <section id="rsvp">
+        <section id="rsvp" className="scroll-mt-16">
           <RSVPForm />
         </section>
       </main>
