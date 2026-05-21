@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useSpring, useTransform, useInView } from 'framer-motion';
+import { motion, useScroll, useSpring, useInView, Variants } from 'framer-motion';
 import { ArrivalIllustration, BrideGroomVows, CelebrationIllustration } from './IllustrativeCharacters';
 import { cn } from '@/lib/utils';
 const scenes = [
@@ -25,19 +25,19 @@ const scenes = [
 function SceneCard({ scene, index }: { scene: typeof scenes[0]; index: number }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { amount: 0.5, once: false });
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0, y: 40 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
         duration: 0.8,
-        ease: [0.21, 0.47, 0.32, 0.98],
+        ease: [0.21, 0.47, 0.32, 0.98] as const,
         staggerChildren: 0.15,
       },
     },
   };
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 15 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
@@ -54,7 +54,7 @@ function SceneCard({ scene, index }: { scene: typeof scenes[0]; index: number })
         isInView ? "opacity-100" : "opacity-40 grayscale-[0.5]"
       )}
     >
-      <motion.div 
+      <motion.div
         className={cn(
           "flex-1 w-full max-w-sm aspect-square rounded-full flex items-center justify-center p-8 transition-all duration-1000",
           isInView ? "bg-sage/10 scale-105 shadow-2xl shadow-sage/5 ring-1 ring-sage/20" : "bg-sage/5 scale-100"
@@ -101,7 +101,7 @@ export function CeremonyStoryboard() {
   return (
     <div ref={containerRef} className="relative py-12">
       <div className="text-center mb-24 space-y-6">
-        <motion.h2 
+        <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -109,7 +109,7 @@ export function CeremonyStoryboard() {
         >
           The Big Day
         </motion.h2>
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -124,9 +124,9 @@ export function CeremonyStoryboard() {
       <div className="relative">
         {/* Central Timeline Infrastructure */}
         <div className="absolute left-1/2 top-0 bottom-0 w-[2px] bg-sage/10 -translate-x-1/2 hidden md:block" />
-        <motion.div 
+        <motion.div
           style={{ scaleY, originY: 0 }}
-          className="absolute left-1/2 top-0 bottom-0 w-[2px] bg-sage -translate-x-1/2 hidden md:block z-10" 
+          className="absolute left-1/2 top-0 bottom-0 w-[2px] bg-sage -translate-x-1/2 hidden md:block z-10"
         />
         <div className="space-y-40 md:space-y-64">
           {scenes.map((scene, idx) => (
