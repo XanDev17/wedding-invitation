@@ -18,39 +18,43 @@ export function HeroCard() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="z-10 px-6 max-w-5xl"
+        className="z-10 px-4 max-w-4xl"
       >
-        <span className="text-sage font-medium tracking-[0.3em] uppercase text-[10px] sm:text-xs mb-6 block">You are cordially invited</span>
-        <h1 className="font-handwriting text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-sage mb-6 leading-tight break-words">
+        <span className="text-sage font-medium tracking-[0.3em] uppercase text-[10px] sm:text-xs mb-6 block animate-fade-in">You are cordially invited</span>
+        <h1 className="font-handwriting text-2xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl text-sage mb-6 leading-tight tracking-[0.02em] break-words px-2">
           Prince Baabu Obeng and Benedicta Annan
         </h1>
         <div className="brush-divider mt-8 mb-8" />
         <p className="font-serif text-xl md:text-3xl text-foreground/80 italic mb-8">September 24th, 2025</p>
-        <p className="text-muted-foreground uppercase tracking-widest text-[10px] sm:text-xs">San Francisco, California</p>
+        <p className="text-muted-foreground uppercase tracking-[0.4em] text-[9px] sm:text-[10px]">San Francisco, California</p>
       </motion.div>
       <motion.div
-        animate={{ y: [0, 10, 0] }}
+        animate={{ y: [0, 8, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-sage/40"
+        className="absolute bottom-16 left-1/2 -translate-x-1/2 text-sage/60"
       >
-        <div className="w-px h-12 bg-sage/30 mx-auto" />
-        <span className="text-[10px] uppercase tracking-tighter mt-2 block">Scroll Down</span>
+        <div className="w-px h-16 bg-sage/30 mx-auto" />
+        <span className="text-[10px] uppercase tracking-[0.2em] mt-3 block font-medium">Scroll Down</span>
       </motion.div>
       {/* Floating particles */}
-      {[...Array(6)].map((_, i) => (
+      {[...Array(8)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute w-2 h-2 rounded-full bg-blush/40"
-          initial={{ x: Math.random() * 1000 - 500, y: Math.random() * 1000 - 500 }}
+          className="absolute w-2 h-2 rounded-full bg-blush/30"
+          initial={{ 
+            x: Math.random() * 1000 - 500, 
+            y: Math.random() * 1000 - 500 
+          }}
           animate={{
-            y: [0, -100, 0],
-            x: [0, 50, 0],
-            opacity: [0.2, 0.5, 0.2]
+            y: [0, -120, 0],
+            x: [0, 60, 0],
+            opacity: [0.1, 0.4, 0.1]
           }}
           transition={{
-            duration: 5 + Math.random() * 5,
+            duration: 6 + Math.random() * 6,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeInOut",
+            delay: i * 0.5
           }}
         />
       ))}

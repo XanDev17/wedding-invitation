@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
+import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -27,6 +28,7 @@ export function RSVPForm() {
   const attendingValue = watch("attending");
   const onSubmit = async (data: RSVPValues) => {
     setIsSubmitting(true);
+    const toastId = toast.loading("Sending your response...");
     try {
       const response = await fetch('/api/rsvp', {
         method: 'POST',
@@ -35,15 +37,19 @@ export function RSVPForm() {
       });
       if (response.ok) {
         setIsSubmitted(true);
+        toast.success("RSVP received! Thank you.", { id: toastId });
         confetti({
           particleCount: 150,
           spread: 70,
           origin: { y: 0.6 },
           colors: ['#8F9E8B', '#E8D8CE', '#FDFBF7']
         });
+      } else {
+        throw new Error("Failed to submit RSVP");
       }
     } catch (error) {
       console.error("Submission error", error);
+      toast.error("Something went wrong. Please try again.", { id: toastId });
     } finally {
       setIsSubmitting(false);
     }
@@ -51,7 +57,7 @@ export function RSVPForm() {
   return (
     <div className="section-container max-w-2xl">
       <div className="text-center mb-12">
-        <h2 className="font-serif text-4xl md:text-5xl mb-4">RSVP</h2>
+        <h2 className="font-serif text-4xl md:text-5xl mb-4 text-foreground">RSVP</h2>
         <p className="text-muted-foreground">Please let us know if you can join us by August 1st.</p>
       </div>
       <AnimatePresence mode="wait">
@@ -64,7 +70,7 @@ export function RSVPForm() {
           >
             <Card className="illustrative-card">
               <CardContent className="pt-6">
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 text-left">
                   <div className="space-y-2">
                     <Label htmlFor="name" className="text-sage font-bold uppercase tracking-widest text-xs">Full Name</Label>
                     <Input id="name" {...register("name")} placeholder="Your name" className="bg-ivory/50 border-sage/20 h-12" />
@@ -72,26 +78,26 @@ export function RSVPForm() {
                   </div>
                   <div className="space-y-3">
                     <Label className="text-sage font-bold uppercase tracking-widest text-xs">Will you be attending?</Label>
-                    <RadioGroup 
-                      defaultValue="yes" 
+                    <RadioGroup
+                      defaultValue="yes"
                       onValueChange={(v) => setValue("attending", v as "yes" | "no")}
                       className="flex gap-8"
                     >
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="yes" id="yes" />
-                        <Label htmlFor="yes">Joyfully Accept</Label>
+                        <Label htmlFor="yes" className="cursor-pointer">Joyfully Accept</Label>
                       </div>
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="no" id="no" />
-                        <Label htmlFor="no">Regretfully Decline</Label>
+                        <Label htmlFor="no" className="cursor-pointer">Regretfully Decline</Label>
                       </div>
                     </RadioGroup>
                   </div>
                   {attendingValue === "yes" && (
-                    <motion.div 
+                    <motion.div
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
-                      className="space-y-6"
+                      className="space-y-6 overflow-hidden"
                     >
                       <div className="space-y-2">
                         <Label htmlFor="guests" className="text-sage font-bold uppercase tracking-widest text-xs">Number of Guests</Label>
@@ -103,8 +109,13 @@ export function RSVPForm() {
                       </div>
                     </motion.div>
                   )}
-                  <Button type="submit" disabled={isSubmitting} className="w-full bg-sage hover:bg-sage/90 text-ivory h-14 rounded-full text-lg font-serif">
-                    {isSubmitting ? <Loader2 className="animate-spin" /> : "Send Response"}
+                  <Button type="submit" disabled={isSubmitting} className="w-full bg-sage hover:bg-sage/90 text-ivory h-14 rounded-full text-lg font-serif transition-all active:scale-[0.98]">
+                    {isSubmitting ? (
+                      <span className="flex items-center gap-2">
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        Sending...
+                      </span>
+                    ) : "Send Response"}
                   </Button>
                 </form>
               </CardContent>
@@ -120,9 +131,13 @@ export function RSVPForm() {
             <div className="flex justify-center mb-6">
               <CheckCircle2 className="w-16 h-16 text-sage" />
             </div>
-            <h3 className="font-serif text-3xl mb-4">Thank You!</h3>
-            <p className="text-muted-foreground leading-relaxed">Your response has been received. {attendingValue === "yes" ? "We can't wait to celebrate with you!" : "We will miss you, but we appreciate you letting us know."}</p>
-            <Button variant="ghost" className="mt-8 text-sage" onClick={() => setIsSubmitted(false)}>Update RSVP</Button>
+            <h3 className="font-serif text-3xl mb-4 text-foreground">Thank You!</h3>
+            <p className="text-muted-foreground leading-relaxed max-w-md mx-auto">
+              Your response has been received. {attendingValue === "yes" ? "We can't wait to celebrate with you!" : "We will miss you, but we appreciate you letting us know."}
+            </p>
+            <Button variant="ghost" className="mt-8 text-sage hover:bg-sage/10 rounded-full" onClick={() => setIsSubmitted(false)}>
+              Update RSVP
+            </Button>
           </motion.div>
         )}
       </AnimatePresence>

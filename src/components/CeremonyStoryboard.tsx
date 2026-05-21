@@ -20,7 +20,7 @@ const scenes: SceneData[] = [
   {
     time: "4:30 PM",
     title: "The Vows",
-    description: "Prince and Benedicta exchange promises under the ancient oak tree. Tissues recommended for the happy tears.",
+    description: "Prince and Benedicta exchange promises under the lush tropical canopy of the conservatory. Tissues recommended for the happy tears.",
     icon: <Heart className="w-8 h-8" />,
     illustration: <BrideGroomVows />,
   },
@@ -33,7 +33,7 @@ const scenes: SceneData[] = [
   {
     time: "7:00 PM",
     title: "The Grand Dinner",
-    description: "A candlelit feast served under the stars. Laughter and toasts echoing through the night.",
+    description: "A candlelit feast served amidst the Victorian glass and greenery. Laughter and toasts echoing through the night.",
     icon: <Utensils className="w-8 h-8" />,
   },
   {
@@ -56,7 +56,7 @@ export function CeremonyStoryboard() {
     restDelta: 0.001
   });
   return (
-    <div ref={containerRef} className="relative py-24 md:py-32 overflow-hidden">
+    <div ref={containerRef} className="relative py-24 md:py-32 overflow-hidden bg-ivory/50">
       <div className="max-w-4xl mx-auto px-6 text-center mb-20">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -72,10 +72,11 @@ export function CeremonyStoryboard() {
         {/* Animated Vertical Line */}
         <div className="absolute left-1/2 top-0 bottom-0 w-px bg-sage/20 -translate-x-1/2 hidden md:block">
           <motion.div
-            className="w-full bg-gradient-to-b from-sage via-blush to-sage origin-top"
-            style={{ 
-              height: "100%", 
+            className="w-full origin-top"
+            style={{
+              height: "100%",
               scaleY: pathLength,
+              background: "linear-gradient(to bottom, #8F9E8B, #E8D8CE, #8F9E8B)",
               filter: "drop-shadow(0 0 8px rgba(143, 158, 139, 0.4))"
             }}
           />
@@ -108,21 +109,21 @@ export function CeremonyStoryboard() {
                   {scene.icon}
                 </motion.div>
                 {/* Decorative Blob */}
-                <div className={`absolute -z-10 w-24 h-24 rounded-full blur-2xl animate-pulse-slow ${idx === 1 ? 'bg-blush/40' : 'bg-sage/10'}`} />
+                <div className={`absolute -z-10 w-24 h-24 rounded-full blur-2xl animate-pulse-slow ${idx % 2 !== 0 ? 'bg-blush/40' : 'bg-sage/10'}`} />
               </div>
               {/* Illustration Side */}
-              <div className="flex-1 w-full md:block">
+              <div className="flex-1 w-full flex items-center justify-center min-h-[200px] md:min-h-[300px]">
                 {scene.illustration ? (
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    className={`${idx % 2 === 0 ? "md:pl-16" : "md:pr-16"}`}
+                    className={`${idx % 2 === 0 ? "md:pl-16" : "md:pr-16"} w-full h-full flex items-center justify-center`}
                   >
                     {scene.illustration}
                   </motion.div>
                 ) : (
-                  <div className="hidden md:block h-32 w-full" />
+                  <div className="hidden md:block w-full h-32" />
                 )}
               </div>
             </motion.div>
