@@ -2,63 +2,56 @@ import React from 'react';
 import { motion } from 'framer-motion';
 export function HeroCard() {
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden px-4">
-      {/* Immersive Background Elements */}
-      <motion.div
-        className="absolute top-20 left-10 text-sage/10 w-32 h-32 md:w-64 md:h-64 pointer-events-none"
-        animate={{ y: [0, -20, 0], rotate: [0, 5, 0] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+    <div className="relative h-screen flex flex-col items-center justify-center text-center overflow-hidden bg-ivory">
+      {/* Decorative Floral SVGs */}
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 0.4, scale: 1 }}
+        transition={{ duration: 2, ease: "easeOut" }}
+        className="absolute -top-20 -left-20 w-80 h-80 text-sage pointer-events-none"
       >
-        <svg viewBox="0 0 100 100" fill="currentColor">
-          <path d="M50 0 Q70 30 50 100 Q30 30 50 0" />
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <path fill="currentColor" d="M40,-60C50,-50,55,-35,58,-20C61,-5,62,10,58,25C54,40,45,55,32,62C19,69,2,68,-15,64C-32,60,-49,53,-58,40C-67,27,-68,8,-64,-10C-60,-28,-51,-45,-38,-55C-25,-65,-10,-68,5,-75C20,-82,40,-70,40,-60Z" transform="translate(100 100)" />
         </svg>
       </motion.div>
-      <motion.div
-        className="absolute bottom-20 right-10 text-blush/20 w-40 h-40 md:w-80 md:h-80 pointer-events-none"
-        animate={{ y: [0, 20, 0], rotate: [0, -5, 0] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-      >
-        <svg viewBox="0 0 100 100" fill="currentColor">
-          <path d="M50 0 Q80 50 50 100 Q20 50 50 0" />
-        </svg>
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.5, ease: "easeOut" }}
-        className="relative z-10 w-full max-w-5xl mx-auto"
+        transition={{ duration: 1 }}
+        className="z-10 px-4"
       >
-        <span className="text-sage font-serif italic tracking-[0.3em] text-[10px] md:text-sm mb-6 md:mb-10 block uppercase opacity-70">
-          The Wedding Invitation of
-        </span>
-        <div className="space-y-2 md:space-y-6 mb-8 md:mb-16">
-          <h1 className="font-handwriting text-5xl sm:text-6xl md:text-8xl lg:text-9xl text-sage leading-[1.1] text-balance">
-            Prince Baabu
-          </h1>
-          <div className="flex items-center justify-center gap-4 md:gap-8">
-            <div className="h-px w-8 md:w-16 bg-sage/20" />
-            <span className="font-serif text-2xl md:text-4xl italic text-sage/30">&</span>
-            <div className="h-px w-8 md:w-16 bg-sage/20" />
-          </div>
-          <h1 className="font-handwriting text-5xl sm:text-6xl md:text-8xl lg:text-9xl text-sage leading-[1.1] text-balance">
-            Benedicta Annan
-          </h1>
-        </div>
-        <div className="space-y-4 pt-4 md:pt-8">
-          <p className="font-serif text-lg md:text-2xl text-foreground tracking-[0.2em] uppercase">
-            24 . 09 . 2025
-          </p>
-          <p className="font-serif text-base md:text-lg text-sage/60 italic">Leytonstone, London</p>
-        </div>
+        <span className="text-sage font-medium tracking-[0.3em] uppercase text-sm mb-6 block">You are cordially invited</span>
+        <h1 className="font-handwriting text-7xl md:text-9xl text-sage mb-4">Olivia & James</h1>
+        <div className="brush-divider" />
+        <p className="font-serif text-2xl md:text-3xl text-foreground/80 italic mb-8">September 24th, 2025</p>
+        <p className="text-muted-foreground uppercase tracking-widest text-xs">San Francisco, California</p>
       </motion.div>
-      {/* Floating Scroll Indicator */}
-      <motion.div
+      <motion.div 
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 opacity-30"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-sage/40"
       >
-        <div className="w-px h-12 md:h-20 bg-gradient-to-b from-sage to-transparent" />
+        <div className="w-px h-12 bg-sage/30 mx-auto" />
+        <span className="text-[10px] uppercase tracking-tighter mt-2 block">Scroll Down</span>
       </motion.div>
+      {/* Floating particles */}
+      {[...Array(6)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-2 h-2 rounded-full bg-blush/40"
+          initial={{ x: Math.random() * 1000 - 500, y: Math.random() * 1000 - 500 }}
+          animate={{ 
+            y: [0, -100, 0],
+            x: [0, 50, 0],
+            opacity: [0.2, 0.5, 0.2]
+          }}
+          transition={{ 
+            duration: 5 + Math.random() * 5, 
+            repeat: Infinity,
+            ease: "easeInOut" 
+          }}
+        />
+      ))}
     </div>
   );
 }
