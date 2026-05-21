@@ -1,6 +1,6 @@
 # EverAfter Wedding
 
-[cloudflarebutton]
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/XanDev17/wedding-invitation)
 
 A modern, production-ready React application scaffolded for Cloudflare Workers. Built with Vite, TypeScript, Tailwind CSS, and a comprehensive UI component library.
 
@@ -72,7 +72,7 @@ worker/               # Cloudflare Worker code
 
 Deploy directly to Cloudflare Workers with a single click or via CLI.
 
-[cloudflarebutton]
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/XanDev17/wedding-invitation)
 
 ### Manual Deployment
 
