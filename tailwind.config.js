@@ -78,6 +78,9 @@ export default {
   		animation: {
   			'fade-in': 'fade-in 1s ease-out forwards',
         'float-slow': 'float-slow 6s ease-in-out infinite'
+  		},
+  		boxShadow: {
+  			'soft': '0 4px 20px -2px rgb(0 0 0 / 0.08), 0 2px 8px -2px rgb(0 0 0 / 0.04)'
   		}
   	}
   },

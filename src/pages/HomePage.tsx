@@ -9,7 +9,7 @@ export function HomePage() {
     <div className="relative min-h-screen overflow-x-hidden selection:bg-blush selection:text-sage">
       <ThemeToggle className="fixed top-6 right-6 z-50 bg-white/40 backdrop-blur-md rounded-full border border-white/20" />
       <header className="fixed top-0 left-0 right-0 z-40 bg-white/10 backdrop-blur-md border-b border-white/10">
-        <nav className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-center gap-8 text-sm font-medium tracking-widest uppercase text-sage">
+        <nav className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-center gap-8 text-xs sm:text-sm font-medium tracking-widest uppercase text-sage">
           <a href="#hero" className="hover:text-foreground transition-colors">Our Story</a>
           <a href="#venue" className="hover:text-foreground transition-colors">Details</a>
           <a href="#rsvp" className="hover:text-foreground transition-colors">RSVP</a>
@@ -26,8 +26,8 @@ export function HomePage() {
           <RSVPForm />
         </section>
       </main>
-      <footer className="py-12 text-center text-muted-foreground font-handwriting text-2xl">
-        <p>Happily Ever After starts here...</p>
+      <footer className="py-12 px-4 text-center text-muted-foreground font-handwriting text-xl sm:text-2xl border-t border-sage/10">
+        <p>Prince & Benedicta — Happily Ever After starts here...</p>
       </footer>
       <Toaster position="top-center" richColors />
     </div>

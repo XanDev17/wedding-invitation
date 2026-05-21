@@ -5,7 +5,7 @@ export function VenueDetails() {
   return (
     <div className="section-container">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
@@ -13,7 +13,11 @@ export function VenueDetails() {
         >
           <div>
             <h2 className="font-serif text-4xl md:text-5xl mb-6 text-foreground">The Celebration</h2>
-            <p className="text-body max-w-md">We can't wait to share our special day with you. The ceremony and reception will both be held at our favorite hidden garden in the city.</p>
+            <p className="text-body max-w-md leading-relaxed text-muted-foreground">
+              We are so blessed to have you in our lives and can't wait to share our special day with you. 
+              Prince and Benedicta invite you to join them as they exchange vows and celebrate the beginning 
+              of their new life together in their favorite hidden garden.
+            </p>
           </div>
           <div className="space-y-8">
             <div className="flex gap-4">
@@ -47,7 +51,7 @@ export function VenueDetails() {
             </div>
           </div>
         </motion.div>
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
