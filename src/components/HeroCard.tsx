@@ -18,13 +18,17 @@ export function HeroCard() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="z-10 px-4 max-w-4xl"
+        className="z-10 px-6 max-w-5xl"
       >
-        <span className="text-sage font-medium tracking-[0.3em] uppercase text-[10px] sm:text-xs mb-6 block animate-fade-in">You are cordially invited</span>
-        <h1 className="font-handwriting text-2xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl text-sage mb-6 leading-tight tracking-[0.02em] break-words px-2">
+        <span className="text-sage font-medium tracking-[0.3em] uppercase text-[10px] sm:text-xs mb-6 block animate-fade-in">
+          You are cordially invited
+        </span>
+        <h1 
+          className="font-handwriting text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-sage mb-6 leading-tight tracking-[0.01em] break-words px-2 drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]"
+        >
           Prince Baabu Obeng and Benedicta Annan
         </h1>
-        <div className="brush-divider mt-8 mb-8" />
+        <div className="brush-divider mt-10 mb-8" />
         <p className="font-serif text-xl md:text-3xl text-foreground/80 italic mb-8">September 24th, 2025</p>
         <p className="text-muted-foreground uppercase tracking-[0.4em] text-[9px] sm:text-[10px]">Leytonstone, London</p>
       </motion.div>

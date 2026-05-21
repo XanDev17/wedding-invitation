@@ -81,13 +81,13 @@ export function CeremonyStoryboard() {
             }}
           />
         </div>
-        <div className="space-y-24 md:space-y-40">
+        <div className="space-y-24 md:space-y-32">
           {scenes.map((scene, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: true, margin: "-120px" }}
               className={`flex flex-col md:flex-row items-center gap-8 md:gap-0 ${
                 idx % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
               }`}
@@ -112,7 +112,7 @@ export function CeremonyStoryboard() {
                 <div className={`absolute -z-10 w-24 h-24 rounded-full blur-2xl animate-pulse-slow ${idx % 2 !== 0 ? 'bg-blush/40' : 'bg-sage/10'}`} />
               </div>
               {/* Illustration Side */}
-              <div className="flex-1 w-full flex items-center justify-center min-h-[200px] md:min-h-[300px]">
+              <div className="flex-1 w-full flex items-center justify-center min-h-[240px] md:min-h-[300px] overflow-hidden">
                 {scene.illustration ? (
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
