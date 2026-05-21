@@ -35,6 +35,7 @@ export function RSVPForm() {
       });
       if (response.ok) {
         setIsSubmitted(true);
+        toast.success("Thank you for your response!");
         confetti({
           particleCount: 150,
           spread: 70,
@@ -51,14 +52,19 @@ export function RSVPForm() {
     }
   };
   return (
-    <div className="bg-white rounded-3xl p-8 md:p-12 shadow-2xl shadow-sage/5 border border-sage/5">
+    <div className="bg-white rounded-3xl p-8 md:p-12 shadow-2xl shadow-sage/5 border border-sage/5 overflow-hidden">
       <div className="text-center mb-10">
         <h2 className="font-serif text-4xl mb-3 text-foreground">RSVP</h2>
         <p className="font-serif italic text-sage/70">Kindly respond by August 1st, 2025</p>
       </div>
       <AnimatePresence mode="wait">
         {!isSubmitted ? (
-          <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+          <motion.div 
+            key="form" 
+            initial={{ opacity: 0, y: 20 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            exit={{ opacity: 0, y: -20 }}
+          >
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
               <div className="space-y-3">
                 <Label htmlFor="name" className="text-xs uppercase tracking-widest text-sage font-semibold">Your Name</Label>
@@ -75,23 +81,33 @@ export function RSVPForm() {
                 <RadioGroup
                   defaultValue="yes"
                   onValueChange={(v) => setValue("attending", v as "yes" | "no")}
-                  className="flex flex-col sm:flex-row gap-4"
+                  className="flex flex-col sm:row gap-4"
                 >
                   <div className="flex-1 flex items-center space-x-3 bg-sage/5 p-4 rounded-xl cursor-pointer hover:bg-sage/10 transition-colors">
                     <RadioGroupItem value="yes" id="yes" />
-                    <Label htmlFor="yes" className="font-medium cursor-pointer">Accepts with pleasure</Label>
+                    <Label htmlFor="yes" className="font-medium cursor-pointer w-full">Accepts with pleasure</Label>
                   </div>
                   <div className="flex-1 flex items-center space-x-3 bg-sage/5 p-4 rounded-xl cursor-pointer hover:bg-sage/10 transition-colors">
                     <RadioGroupItem value="no" id="no" />
-                    <Label htmlFor="no" className="font-medium cursor-pointer">Declines with regret</Label>
+                    <Label htmlFor="no" className="font-medium cursor-pointer w-full">Declines with regret</Label>
                   </div>
                 </RadioGroup>
               </div>
               {attendingValue === "yes" && (
-                <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="space-y-6 overflow-hidden">
+                <motion.div 
+                  initial={{ opacity: 0, height: 0 }} 
+                  animate={{ opacity: 1, height: "auto" }} 
+                  className="space-y-6 overflow-hidden"
+                >
                   <div className="space-y-3">
                     <Label className="text-xs uppercase tracking-widest text-sage font-semibold">Total Guests</Label>
-                    <Input {...register("guests")} className="bg-sage/5 border-none h-12 rounded-xl" placeholder="Number in party" />
+                    <Input 
+                      type="number"
+                      min="1"
+                      {...register("guests")} 
+                      className="bg-sage/5 border-none h-12 rounded-xl" 
+                      placeholder="Number in party" 
+                    />
                   </div>
                   <div className="space-y-3">
                     <Label className="text-xs uppercase tracking-widest text-sage font-semibold">Dietary Notes</Label>
@@ -113,20 +129,26 @@ export function RSVPForm() {
             </form>
           </motion.div>
         ) : (
-          <motion.div key="success" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="py-12 text-center space-y-6">
+          <motion.div 
+            key="success" 
+            initial={{ opacity: 0, scale: 0.9, y: 20 }} 
+            animate={{ opacity: 1, scale: 1, y: 0 }} 
+            className="py-12 text-center space-y-6"
+          >
             <div className="w-20 h-20 bg-sage/10 rounded-full flex items-center justify-center mx-auto text-sage">
               <CheckCircle2 className="w-10 h-10" />
             </div>
             <div>
               <h3 className="font-serif text-3xl mb-2">Thank You!</h3>
-              <p className="font-serif italic text-muted-foreground text-lg">We've received your response and can't wait to see you.</p>
+              <p className="font-serif italic text-muted-foreground text-lg text-balance">We've received your response and can't wait to see you.</p>
             </div>
-            <button 
-              onClick={() => setIsSubmitted(false)} 
-              className="text-xs uppercase tracking-widest text-sage font-bold hover:underline"
+            <Button
+              variant="ghost"
+              onClick={() => setIsSubmitted(false)}
+              className="text-xs uppercase tracking-widest text-sage font-bold hover:bg-sage/5"
             >
               Update my response
-            </button>
+            </Button>
           </motion.div>
         )}
       </AnimatePresence>
