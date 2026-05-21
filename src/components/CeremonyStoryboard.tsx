@@ -1,11 +1,13 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { Sparkles, GlassWater, Utensils, Music, Heart } from 'lucide-react';
+import { ArrivalIllustration, BrideGroomVows, CelebrationIllustration } from '@/components/IllustrativeCharacters';
 interface SceneData {
   time: string;
   title: string;
   description: string;
   icon: React.ReactNode;
+  illustration?: React.ReactNode;
 }
 const scenes: SceneData[] = [
   {
@@ -13,12 +15,14 @@ const scenes: SceneData[] = [
     title: "The Guest Arrival",
     description: "Welcome to the secret garden. Soft music plays as you find your seat amidst the blooming hydrangeas.",
     icon: <Sparkles className="w-8 h-8" />,
+    illustration: <ArrivalIllustration />,
   },
   {
     time: "4:30 PM",
     title: "The Vows",
     description: "Prince and Benedicta exchange promises under the ancient oak tree. Tissues recommended for the happy tears.",
     icon: <Heart className="w-8 h-8" />,
+    illustration: <BrideGroomVows />,
   },
   {
     time: "5:30 PM",
@@ -37,6 +41,7 @@ const scenes: SceneData[] = [
     title: "Dancing & Joy",
     description: "The celebration reaches its peak. Put on your dancing shoes as the DJ plays our favorite hits.",
     icon: <Music className="w-8 h-8" />,
+    illustration: <CelebrationIllustration />,
   },
 ];
 export function CeremonyStoryboard() {
@@ -63,12 +68,16 @@ export function CeremonyStoryboard() {
         </motion.h2>
         <p className="text-muted-foreground italic font-serif text-lg">A journey of love, from the first hello to the last dance.</p>
       </div>
-      <div className="relative max-w-5xl mx-auto px-6">
+      <div className="relative max-w-6xl mx-auto px-6">
         {/* Animated Vertical Line */}
         <div className="absolute left-1/2 top-0 bottom-0 w-px bg-sage/20 -translate-x-1/2 hidden md:block">
           <motion.div
-            className="w-full bg-sage origin-top"
-            style={{ height: "100%", scaleY: pathLength }}
+            className="w-full bg-gradient-to-b from-sage via-blush to-sage origin-top"
+            style={{ 
+              height: "100%", 
+              scaleY: pathLength,
+              filter: "drop-shadow(0 0 8px rgba(143, 158, 139, 0.4))"
+            }}
           />
         </div>
         <div className="space-y-24 md:space-y-40">
@@ -99,10 +108,23 @@ export function CeremonyStoryboard() {
                   {scene.icon}
                 </motion.div>
                 {/* Decorative Blob */}
-                <div className="absolute -z-10 w-24 h-24 bg-blush/20 rounded-full blur-2xl animate-pulse-slow" />
+                <div className={`absolute -z-10 w-24 h-24 rounded-full blur-2xl animate-pulse-slow ${idx === 1 ? 'bg-blush/40' : 'bg-sage/10'}`} />
               </div>
-              {/* Illustration Side (Placeholder for visual balance) */}
-              <div className="flex-1 hidden md:block" />
+              {/* Illustration Side */}
+              <div className="flex-1 w-full md:block">
+                {scene.illustration ? (
+                  <motion.div 
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    className={`${idx % 2 === 0 ? "md:pl-16" : "md:pr-16"}`}
+                  >
+                    {scene.illustration}
+                  </motion.div>
+                ) : (
+                  <div className="hidden md:block h-32 w-full" />
+                )}
+              </div>
             </motion.div>
           ))}
         </div>
