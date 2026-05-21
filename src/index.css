@@ -3,56 +3,35 @@
 @tailwind utilities;
 @layer base {
   :root {
-    --background: 40 30% 98%; 
+    --background: 40 30% 98%;
     --foreground: 120 5% 15%;
-    --primary: 100 10% 40%; 
+    --primary: 100 10% 40%;
     --primary-foreground: 0 0% 100%;
     --muted: 30 15% 94%;
     --muted-foreground: 120 5% 45%;
     --border: 30 15% 85%;
-    --card: 40 30% 99%;
-    --radius: 0.5rem;
+    --card: 0 0% 100%;
+    --radius: 1rem;
   }
 }
 @layer components {
   .section-container {
-    @apply max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32;
+    @apply max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24;
   }
-  .paper-texture {
-    background-color: #fdfbf7;
-    background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
-    position: relative;
+  .glass-panel {
+    @apply bg-white/40 backdrop-blur-md border border-white/20 shadow-sm;
   }
-  .classic-card-border {
-    @apply relative border-[1px] border-sage/40 m-4 md:m-8;
-    box-shadow: inset 0 0 0 4px theme('colors.ivory'), inset 0 0 0 5px theme('colors.sage / 0.2');
-  }
-  .card-corner::before,
-  .card-corner::after {
-    content: '◈';
-    @apply absolute text-sage/30 text-xl font-serif pointer-events-none;
-  }
-  .card-corner-tl::before { @apply top-2 left-2; }
-  .card-corner-tr::after { @apply top-2 right-2; }
-  .card-corner-bl::before { @apply bottom-2 left-2; }
-  .card-corner-br::after { @apply bottom-2 right-2; }
 }
 @layer utilities {
-  .letterpress {
-    text-shadow: 0.5px 0.5px 1px rgba(255, 255, 255, 0.8), -0.5px -0.5px 1px rgba(0, 0, 0, 0.05);
-  }
-  .deckle-edge {
-    box-shadow: 0 0 10px rgba(0,0,0,0.05);
-    clip-path: polygon(
-      0% 2%, 2% 0%, 98% 1%, 100% 3%, 99% 97%, 97% 100%, 2% 99%, 0% 98%
-    );
+  .text-balance {
+    text-wrap: balance;
   }
 }
 html {
   scroll-behavior: smooth;
 }
 body {
-  @apply bg-[#EAE7E0] text-foreground font-sans selection:bg-[#D4AF37]/20 selection:text-sage;
-  /* Tabletop background */
-  background-image: radial-gradient(circle at 50% 50%, #f0ede6 0%, #e2ded3 100%);
+  @apply bg-[#FDFBF7] text-foreground font-sans selection:bg-blush/40 selection:text-sage;
+  background-image: radial-gradient(circle at 50% 50%, #FDFBF7 0%, #F5F1E9 100%);
+  min-height: 100vh;
 }

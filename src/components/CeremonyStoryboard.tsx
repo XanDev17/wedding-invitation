@@ -1,75 +1,57 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useSpring } from 'framer-motion';
-import { Sparkles, GlassWater, Utensils, Music, Heart } from 'lucide-react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { ArrivalIllustration, BrideGroomVows, CelebrationIllustration } from './IllustrativeCharacters';
 const scenes = [
-  { time: "4:00 PM", title: "Arrival", description: "The historic school hall doors open for guests", icon: <Sparkles className="w-5 h-5" /> },
-  { time: "4:30 PM", title: "The Exchange", description: "The solemn exchange of vows and promises", icon: <Heart className="w-5 h-5" /> },
-  { time: "5:30 PM", title: "Mingling", description: "Refreshments in the Victorian courtyard", icon: <GlassWater className="w-5 h-5" /> },
-  { time: "7:00 PM", title: "Dinner", description: "A formal dinner within the assembly hall", icon: <Utensils className="w-5 h-5" /> },
-  { time: "9:00 PM", title: "Celebration", description: "Music and dancing until late evening", icon: <Music className="w-5 h-5" /> },
+  { 
+    time: "4:00 PM", 
+    title: "The Arrival", 
+    description: "Welcome to the historic halls of Leytonstone", 
+    illustration: <ArrivalIllustration /> 
+  },
+  { 
+    time: "4:30 PM", 
+    title: "The Vows", 
+    description: "A beautiful promise in the heart of London", 
+    illustration: <BrideGroomVows /> 
+  },
+  { 
+    time: "7:00 PM", 
+    title: "The Party", 
+    description: "Dining, dancing, and endless celebration", 
+    illustration: <CelebrationIllustration /> 
+  },
 ];
 export function CeremonyStoryboard() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-  const pathLength = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
   return (
-    <div ref={containerRef} className="paper-texture classic-card-border shadow-lg p-12 md:p-20 bg-[#F7F5EF]">
+    <div className="space-y-24">
       <div className="text-center mb-16 space-y-4">
-        <h2 className="font-serif text-3xl tracking-[0.2em] uppercase">Order of Service</h2>
-        <div className="flex justify-center items-center gap-4 py-2">
-           <svg width="60" height="10" viewBox="0 0 60 10" className="text-sage/30">
-             <path d="M0 5 Q15 0 30 5 T60 5" fill="none" stroke="currentColor" strokeWidth="1" />
-           </svg>
-        </div>
+        <h2 className="font-serif text-4xl md:text-5xl tracking-tight text-foreground">The Big Day</h2>
+        <p className="font-serif italic text-sage/70">A timeline of our celebration</p>
       </div>
-      <div className="relative max-w-xl mx-auto">
-        {/* Fine-ink timeline line */}
-        <div className="absolute left-1/2 top-0 bottom-0 w-[0.5px] bg-sage/20 -translate-x-1/2">
-           <motion.div
-            className="w-full origin-top bg-sage"
-            style={{ height: "100%", scaleY: pathLength }}
-          />
-        </div>
-        <div className="space-y-16 relative">
+      <div className="relative">
+        {/* Central timeline line */}
+        <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-sage/20 to-transparent -translate-x-1/2 hidden md:block" />
+        <div className="space-y-32">
           {scenes.map((scene, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="flex flex-col items-center text-center relative z-10"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: idx * 0.2 }}
+              className={`flex flex-col ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-12 md:gap-24`}
             >
-              <div className="bg-ivory border border-sage/20 rounded-full p-2 mb-4 shadow-sm">
-                <div className="w-8 h-8 rounded-full border border-sage/10 flex items-center justify-center text-sage">
-                  {scene.icon}
-                </div>
+              <div className="flex-1 w-full max-w-sm aspect-square bg-sage/5 rounded-full overflow-hidden flex items-center justify-center p-8">
+                {scene.illustration}
               </div>
-              <div className="space-y-1 max-w-xs">
-                <span className="font-serif text-[10px] uppercase tracking-[0.3em] text-sage/70">{scene.time}</span>
-                <h3 className="font-serif text-lg tracking-wide uppercase">{scene.title}</h3>
-                <p className="font-serif italic text-muted-foreground text-sm">{scene.description}</p>
+              <div className={`flex-1 text-center ${idx % 2 === 0 ? 'md:text-left' : 'md:text-right'} space-y-4`}>
+                <span className="font-serif text-sm uppercase tracking-[0.3em] text-sage/60 block">{scene.time}</span>
+                <h3 className="font-serif text-3xl md:text-4xl text-foreground">{scene.title}</h3>
+                <p className="font-serif italic text-muted-foreground text-lg leading-relaxed">{scene.description}</p>
               </div>
-              {idx < scenes.length - 1 && (
-                <div className="py-8 text-sage/20 text-xs">❦</div>
-              )}
             </motion.div>
           ))}
         </div>
-      </div>
-      {/* Sketchy botanical details */}
-      <div className="absolute bottom-8 right-8 w-24 h-24 opacity-10 pointer-events-none">
-        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1">
-          <path d="M10 90 Q30 50 80 10 M80 10 L70 15 M80 10 L75 20" />
-          <path d="M35 75 Q45 60 55 65" />
-          <path d="M50 55 Q60 40 70 45" />
-        </svg>
       </div>
     </div>
   );
