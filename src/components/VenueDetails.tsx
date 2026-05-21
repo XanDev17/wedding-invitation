@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, Clock, Calendar } from 'lucide-react';
+import { MapPin, Info, Car, Shirt } from 'lucide-react';
 export function VenueDetails() {
   return (
     <div className="section-container">
@@ -12,41 +12,42 @@ export function VenueDetails() {
           className="space-y-12"
         >
           <div>
-            <h2 className="font-serif text-4xl md:text-5xl mb-6 text-foreground">The Celebration</h2>
+            <h2 className="font-serif text-4xl md:text-5xl mb-6 text-foreground">The Destination</h2>
             <p className="text-body max-w-md leading-relaxed text-muted-foreground">
-              We are so blessed to have you in our lives and can't wait to share our special day with you. 
-              Prince and Benedicta invite you to join them as they exchange vows and celebrate the beginning 
-              of their new life together in their favorite hidden garden.
+              We've chosen the iconic Conservatory of Flowers for its timeless beauty and lush, romantic atmosphere. 
+              Built in 1879, this Victorian greenhouse is a jewel of Golden Gate Park and the perfect backdrop 
+              for our new beginning.
             </p>
           </div>
           <div className="space-y-8">
             <div className="flex gap-4">
               <div className="w-12 h-12 rounded-full bg-sage/10 flex items-center justify-center text-sage shrink-0">
-                <Calendar className="w-5 h-5" />
-              </div>
-              <div>
-                <h4 className="font-serif text-xl font-bold">The Date</h4>
-                <p className="text-muted-foreground">Saturday, Sept 24, 2025</p>
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <div className="w-12 h-12 rounded-full bg-sage/10 flex items-center justify-center text-sage shrink-0">
-                <Clock className="w-5 h-5" />
-              </div>
-              <div>
-                <h4 className="font-serif text-xl font-bold">The Time</h4>
-                <p className="text-muted-foreground">Ceremony: 4:00 PM</p>
-                <p className="text-muted-foreground">Reception: 6:30 PM</p>
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <div className="w-12 h-12 rounded-full bg-sage/10 flex items-center justify-center text-sage shrink-0">
                 <MapPin className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="font-serif text-xl font-bold">The Venue</h4>
+                <h4 className="font-serif text-xl font-bold">Location</h4>
                 <p className="text-muted-foreground">Conservatory of Flowers</p>
-                <p className="text-muted-foreground">100 John F Kennedy Dr, San Francisco, CA</p>
+                <p className="text-muted-foreground text-sm">100 John F Kennedy Dr, San Francisco, CA 94118</p>
+              </div>
+            </div>
+            <div className="flex gap-4">
+              <div className="w-12 h-12 rounded-full bg-sage/10 flex items-center justify-center text-sage shrink-0">
+                <Shirt className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="font-serif text-xl font-bold">Dress Code</h4>
+                <p className="text-muted-foreground">Formal Attire</p>
+                <p className="text-muted-foreground text-sm italic">Think garden elegance and comfortable shoes for the grass.</p>
+              </div>
+            </div>
+            <div className="flex gap-4">
+              <div className="w-12 h-12 rounded-full bg-sage/10 flex items-center justify-center text-sage shrink-0">
+                <Car className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="font-serif text-xl font-bold">Getting There</h4>
+                <p className="text-muted-foreground">Parking is available along JFK Drive.</p>
+                <p className="text-muted-foreground text-sm italic">We recommend ride-sharing for a stress-free evening.</p>
               </div>
             </div>
           </div>
@@ -55,18 +56,26 @@ export function VenueDetails() {
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="relative aspect-square rounded-4xl overflow-hidden bg-blush/20 border-8 border-white shadow-soft"
+          className="relative aspect-square rounded-4xl overflow-hidden bg-white border-8 border-white shadow-soft"
         >
-          {/* Sketchy Venue Graphic Placeholder */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <svg className="w-2/3 h-2/3 text-sage/30" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-               <path d="M10 90 L10 40 L50 10 L90 40 L90 90 Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-               <path d="M30 90 L30 60 L70 60 L70 90" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-               <circle cx="50" cy="30" r="5" stroke="currentColor" strokeWidth="2"/>
-               <path d="M10 50 Q30 40 50 50 T90 50" stroke="currentColor" strokeWidth="1" strokeDasharray="4 2"/>
+          {/* Detailed Venue Illustration */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-sage/40">
+            <svg className="w-full h-full" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+               {/* Victorian Greenhouse Sketch */}
+               <path d="M40 160 H160 V100 Q100 20 40 100 V160" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+               <path d="M100 20 V160" stroke="currentColor" strokeWidth="0.5" strokeDasharray="4 4"/>
+               <path d="M60 160 V75 Q100 40 140 75 V160" stroke="currentColor" strokeWidth="1"/>
+               <circle cx="100" cy="50" r="15" stroke="currentColor" strokeWidth="0.5" fill="currentColor" fillOpacity="0.05"/>
+               <rect x="85" y="120" width="30" height="40" stroke="currentColor" strokeWidth="1"/>
+               {/* Decorative Leaves */}
+               <path d="M20 170 Q30 150 50 165" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
+               <path d="M150 170 Q170 150 180 165" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
             </svg>
+            <div className="absolute bottom-12 text-center">
+              <span className="font-serif text-sm italic">Est. 1879</span>
+            </div>
           </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-sage/10 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-sage/5 to-transparent pointer-events-none" />
         </motion.div>
       </div>
     </div>

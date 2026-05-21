@@ -25,12 +25,30 @@
     @apply w-32 h-1 bg-sage/30 rounded-full mx-auto my-8;
   }
 }
+@layer utilities {
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 0.3;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(1.1);
+    }
+  }
+  .timeline-gradient-line {
+    @apply bg-gradient-to-b from-sage via-blush to-sage;
+  }
+}
 html {
   scroll-behavior: smooth;
 }
 body {
   @apply bg-ivory text-foreground font-sans;
-  background-image: 
-    radial-gradient(at 0% 0%, hsla(24, 40%, 95%, 1) 0, transparent 50%), 
+  background-image:
+    radial-gradient(at 0% 0%, hsla(24, 40%, 95%, 1) 0, transparent 50%),
     radial-gradient(at 100% 100%, hsla(90, 20%, 92%, 1) 0, transparent 50%);
 }

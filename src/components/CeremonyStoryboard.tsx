@@ -1,139 +1,116 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useSpring, useInView, Variants } from 'framer-motion';
-import { ArrivalIllustration, BrideGroomVows, CelebrationIllustration } from './IllustrativeCharacters';
-import { cn } from '@/lib/utils';
-const scenes = [
+import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
+import { Sparkles, GlassWater, Utensils, Music, Heart } from 'lucide-react';
+interface SceneProps {
+  time: string;
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  index: number;
+}
+const scenes: SceneProps[] = [
   {
     time: "4:00 PM",
-    title: "The Arrival",
-    description: "Welcome to the historic halls of Leytonstone",
-    illustration: <ArrivalIllustration />
+    title: "The Guest Arrival",
+    description: "Welcome to the secret garden. Soft music plays as you find your seat amidst the blooming hydrangeas.",
+    icon: <Sparkles className="w-8 h-8" />,
   },
   {
     time: "4:30 PM",
     title: "The Vows",
-    description: "A beautiful promise in the heart of London",
-    illustration: <BrideGroomVows />
+    description: "Prince and Benedicta exchange promises under the ancient oak tree. Tissues recommended for the happy tears.",
+    icon: <Heart className="w-8 h-8" />,
+  },
+  {
+    time: "5:30 PM",
+    title: "Cocktail Hour",
+    description: "Signature drinks and artisan hors d'oeuvres. A time to mingle and bask in the golden hour glow.",
+    icon: <GlassWater className="w-8 h-8" />,
   },
   {
     time: "7:00 PM",
-    title: "The Party",
-    description: "Dining, dancing, and endless celebration",
-    illustration: <CelebrationIllustration />
+    title: "The Grand Dinner",
+    description: "A candlelit feast served under the stars. Laughter and toasts echoing through the night.",
+    icon: <Utensils className="w-8 h-8" />,
+  },
+  {
+    time: "9:00 PM",
+    title: "Dancing & Joy",
+    description: "The celebration reaches its peak. Put on your dancing shoes as the DJ plays our favorite hits.",
+    icon: <Music className="w-8 h-8" />,
   },
 ];
-function SceneCard({ scene, index }: { scene: typeof scenes[0]; index: number }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { amount: 0.5, once: false });
-  const containerVariants: Variants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.21, 0.47, 0.32, 0.98] as const,
-        staggerChildren: 0.15,
-      },
-    },
-  };
-  const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 15 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  };
-  return (
-    <motion.div
-      ref={ref}
-      variants={containerVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
-      className={cn(
-        "flex flex-col items-center gap-12 md:gap-24 transition-all duration-700",
-        index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse',
-        isInView ? "opacity-100" : "opacity-40 grayscale-[0.5]"
-      )}
-    >
-      <motion.div
-        className={cn(
-          "flex-1 w-full max-w-sm aspect-square rounded-full flex items-center justify-center p-8 transition-all duration-1000",
-          isInView ? "bg-sage/10 scale-105 shadow-2xl shadow-sage/5 ring-1 ring-sage/20" : "bg-sage/5 scale-100"
-        )}
-      >
-        <div className="w-full h-full">
-          {scene.illustration}
-        </div>
-      </motion.div>
-      <div className={cn(
-        "flex-1 text-center space-y-6",
-        index % 2 === 0 ? 'md:text-left' : 'md:text-right'
-      )}>
-        <motion.div variants={itemVariants} className="overflow-hidden">
-          <span className="font-serif text-sm uppercase tracking-[0.4em] text-sage/80 block font-semibold">
-            {scene.time}
-          </span>
-        </motion.div>
-        <motion.div variants={itemVariants} className="overflow-hidden">
-          <h3 className="font-serif text-4xl md:text-5xl text-foreground leading-tight">
-            {scene.title}
-          </h3>
-        </motion.div>
-        <motion.div variants={itemVariants} className="overflow-hidden">
-          <p className="font-serif italic text-muted-foreground text-xl leading-relaxed max-w-md mx-auto md:mx-0">
-            {scene.description}
-          </p>
-        </motion.div>
-      </div>
-    </motion.div>
-  );
-}
 export function CeremonyStoryboard() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start center", "end center"]
+    offset: ["start end", "end start"],
   });
-  const scaleY = useSpring(scrollYProgress, {
+  const pathLength = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001
   });
   return (
-    <div ref={containerRef} className="relative py-12">
-      <div className="text-center mb-24 space-y-6">
-        <motion.h2
+    <div ref={containerRef} className="relative py-24 md:py-32 overflow-hidden">
+      <div className="max-w-4xl mx-auto px-6 text-center mb-20">
+        <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="font-serif text-5xl md:text-6xl tracking-tight text-foreground"
+          className="font-serif text-4xl md:text-5xl mb-6 text-foreground"
         >
-          The Big Day
+          The Story of Our Day
         </motion.h2>
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-          className="flex items-center justify-center gap-4"
-        >
-          <div className="h-px w-8 bg-sage/30" />
-          <p className="font-serif italic text-sage/70 text-lg">A timeline of our celebration</p>
-          <div className="h-px w-8 bg-sage/30" />
-        </motion.div>
+        <p className="text-muted-foreground italic font-serif text-lg">A journey of love, from the first hello to the last dance.</p>
       </div>
-      <div className="relative">
-        {/* Central Timeline Infrastructure */}
-        <div className="absolute left-1/2 top-0 bottom-0 w-[2px] bg-sage/10 -translate-x-1/2 hidden md:block" />
-        <motion.div
-          style={{ scaleY, originY: 0 }}
-          className="absolute left-1/2 top-0 bottom-0 w-[2px] bg-sage -translate-x-1/2 hidden md:block z-10"
-        />
-        <div className="space-y-40 md:space-y-64">
+      <div className="relative max-w-5xl mx-auto px-6">
+        {/* Animated Vertical Line */}
+        <div className="absolute left-1/2 top-0 bottom-0 w-px bg-sage/20 -translate-x-1/2 hidden md:block">
+          <motion.div 
+            className="w-full bg-sage origin-top"
+            style={{ height: "100%", scaleY: pathLength }}
+          />
+        </div>
+        <div className="space-y-24 md:space-y-40">
           {scenes.map((scene, idx) => (
-            <SceneCard key={idx} scene={scene} index={idx} />
+            <motion.div 
+              key={idx}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              className={`flex flex-col md:flex-row items-center gap-8 md:gap-0 ${
+                idx % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+              }`}
+            >
+              {/* Content Side */}
+              <div className={`flex-1 w-full text-center ${idx % 2 === 0 ? "md:text-right md:pr-16" : "md:text-left md:pl-16"}`}>
+                <span className="text-sage font-bold tracking-widest text-sm mb-2 block">{scene.time}</span>
+                <h3 className="font-serif text-2xl md:text-3xl mb-4 text-foreground">{scene.title}</h3>
+                <p className="text-muted-foreground leading-relaxed max-w-sm mx-auto md:mx-0 inline-block">
+                  {scene.description}
+                </p>
+              </div>
+              {/* Icon / Center Side */}
+              <div className="relative flex items-center justify-center z-10">
+                <motion.div 
+                  whileHover={{ scale: 1.1 }}
+                  className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white border-2 border-sage/30 flex items-center justify-center text-sage shadow-soft"
+                >
+                  {scene.icon}
+                </motion.div>
+                {/* Decorative Blob */}
+                <div className="absolute -z-10 w-24 h-24 bg-blush/20 rounded-full blur-2xl animate-pulse-slow" />
+              </div>
+              {/* Illustration Side (Placeholder for visual balance) */}
+              <div className="flex-1 hidden md:block" />
+            </motion.div>
           ))}
         </div>
       </div>
+      {/* Background Decorative Elements */}
+      <div className="absolute top-1/4 -left-20 w-64 h-64 bg-sage/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-blush/10 rounded-full blur-3xl pointer-events-none" />
     </div>
   );
 }
